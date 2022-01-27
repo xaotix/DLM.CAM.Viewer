@@ -1,4 +1,3 @@
-C:\Users\ma1516\Documents\Projetos\CAM_Viewer\obj\Debug\CAM_Viewer.csprojAssemblyReference.cache
 C:\Users\ma1516\Documents\Projetos\CAM_Viewer\obj\Debug\App.baml
 C:\Users\ma1516\Documents\Projetos\CAM_Viewer\obj\Debug\App.g.cs
 C:\Users\ma1516\Documents\Projetos\CAM_Viewer\obj\Debug\VisualizadorCAM_Content.g.cs
@@ -13,3 +12,6 @@ C:\Users\ma1516\Documents\Projetos\CAM_Viewer\obj\Debug\CAM_Viewer.csproj.CoreCo
 C:\Users\ma1516\Documents\Projetos\CAM_Viewer\obj\Debug\CAM_Viewer.csproj.CopyComplete
 C:\Users\ma1516\Documents\Projetos\CAM_Viewer\obj\Debug\VisualizadorCAM.exe
 C:\Users\ma1516\Documents\Projetos\CAM_Viewer\obj\Debug\VisualizadorCAM.pdb
+C:\Users\ma1516\Documents\Projetos\DLLS\VisualizadorCAM.exe.config
+C:\Users\ma1516\Documents\Projetos\DLLS\VisualizadorCAM.exe
+C:\Users\ma1516\Documents\Projetos\DLLS\VisualizadorCAM.pdb
