@@ -103,7 +103,7 @@ namespace VisualizadorCAM
 
             var ARQ = Conexoes.Utilz.RaizAppData() + @"\" + TipoPerfil.ToString().ToUpper().Replace("_", "") + ".CAM";
 
-            this.camrender = new Cam(ARQ, DLMCam.CAM_Perfil.Criar(this.Comprimento,TipoPerfil,this.Altura,this.Alma,this.Largura,this.Espessura,this.AbaS,this.Largura2,this.AbaI,this.Espessura2));
+            this.camrender = new Cam(ARQ, DLMCam.Perfil.Criar(this.Comprimento,TipoPerfil,this.Altura,this.Alma,this.Largura,this.Espessura,this.AbaS,this.Largura2,this.AbaI,this.Espessura2));
             var s = this.camrender.Formato.Peso;
 
         }

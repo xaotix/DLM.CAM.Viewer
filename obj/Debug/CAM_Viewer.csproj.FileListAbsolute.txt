@@ -15,3 +15,4 @@ C:\Users\ma1516\Documents\Projetos\CAM_Viewer\obj\Debug\VisualizadorCAM.pdb
 C:\Users\ma1516\Documents\Projetos\DLLS\VisualizadorCAM.exe.config
 C:\Users\ma1516\Documents\Projetos\DLLS\VisualizadorCAM.exe
 C:\Users\ma1516\Documents\Projetos\DLLS\VisualizadorCAM.pdb
+C:\Users\ma1516\Documents\Projetos\CAM_Viewer\obj\Debug\CAM_Viewer.csprojAssemblyReference.cache

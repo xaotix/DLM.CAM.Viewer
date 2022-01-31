@@ -10,7 +10,7 @@
                   Style="{StaticResource BlankWindow}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" MinWidth="250"></ColumnDefinition>
+            <ColumnDefinition Width="250" MinWidth="100" MaxWidth="250"></ColumnDefinition>
             <ColumnDefinition Width="5"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
