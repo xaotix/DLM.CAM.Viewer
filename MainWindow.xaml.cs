@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using DLMCam;
+using DLMcam;
 using System.Diagnostics;
 using System.IO;
 
@@ -42,7 +42,7 @@ namespace VisualizadorCAM
         private void Inicializar()
         {
             this.Title = System.Windows.Forms.Application.ProductName + " v." + System.Windows.Forms.Application.ProductVersion;
-            this.Tipo.ItemsSource = Enum.GetValues(typeof(DLMCam.TipoPerfil)).Cast<DLMCam.TipoPerfil>().OrderBy(x => x.ToString()).ToList().FindAll(x => !x.ToString().StartsWith("_"));
+            this.Tipo.ItemsSource = Enum.GetValues(typeof(DLMenum.CAM_PERFIL_TIPO)).Cast<DLMenum.CAM_PERFIL_TIPO>().OrderBy(x => x.ToString()).ToList().FindAll(x => !x.ToString().StartsWith("_"));
             if (this.Tipo.Items.Count > 0)
             {
                 this.Tipo.SelectedIndex = 0;
@@ -99,11 +99,11 @@ namespace VisualizadorCAM
 
         private void getCNC()
         {
-            var TipoPerfil = (TipoPerfil)Tipo.SelectedItem;
+            var TipoPerfil = (DLMenum.CAM_PERFIL_TIPO)Tipo.SelectedItem;
 
             var ARQ = Conexoes.Utilz.RaizAppData() + @"\" + TipoPerfil.ToString().ToUpper().Replace("_", "") + ".CAM";
 
-            this.camrender = new Cam(ARQ, DLMCam.Perfil.Criar(this.Comprimento,TipoPerfil,this.Altura,this.Alma,this.Largura,this.Espessura,this.AbaS,this.Largura2,this.AbaI,this.Espessura2));
+            this.camrender = new Cam(ARQ, DLMcam.Perfil.Criar(this.Comprimento,TipoPerfil,this.Altura,this.Alma,this.Largura,this.Espessura,this.AbaS,this.Largura2,this.AbaI,this.Espessura2));
             var s = this.camrender.Formato.Peso;
 
         }
