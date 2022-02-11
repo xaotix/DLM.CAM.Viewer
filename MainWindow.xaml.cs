@@ -19,6 +19,7 @@ using System.Windows.Shapes;
 using DLM.cam;
 using System.Diagnostics;
 using System.IO;
+using DLM.vars;
 
 namespace VisualizadorCAM
 {
@@ -101,7 +102,7 @@ namespace VisualizadorCAM
         {
             var TipoPerfil = (DLM.vars.CAM_PERFIL_TIPO)Tipo.SelectedItem;
 
-            var ARQ = Conexoes.Utilz.RaizAppData() + @"\" + TipoPerfil.ToString().ToUpper().Replace("_", "") + ".CAM";
+            var ARQ = Cfg.Init.Raiz_AppData+ @"\" + TipoPerfil.ToString().ToUpper().Replace("_", "") + ".CAM";
 
             this.camrender = new Cam(ARQ, DLM.cam.Perfil.Criar(this.Comprimento,TipoPerfil,this.Altura,this.Alma,this.Largura,this.Espessura,this.AbaS,this.Largura2,this.AbaI,this.Espessura2));
             var s = this.camrender.Formato.Peso;
@@ -112,7 +113,7 @@ namespace VisualizadorCAM
         {
             try
             {
-                Process.Start(Conexoes.Utilz.RaizAppData());
+                Process.Start(Cfg.Init.Raiz_AppData);
             }
             catch (Exception)
             {
@@ -148,12 +149,12 @@ namespace VisualizadorCAM
         private void carregar_cam(object sender, SelectionChangedEventArgs e)
         {
             var s = this.cams_lista.SelectedItem;
-            if(s is ReadCam)
+            if(s is ReadCAM)
             {
                 try
                 {
                     this.camrender = null;
-                    this.view.Abrir((ReadCam)s);
+                    this.view.Abrir((ReadCAM)s);
 
                 }
                 catch (Exception)
@@ -177,7 +178,7 @@ namespace VisualizadorCAM
             {
                 var arqs = Conexoes.Utilz.GetArquivos(pasta, "*.CAM", searchOption);
                 this.cams_lista.ItemsSource = null;
-                this.cams_lista.ItemsSource = arqs.Select(x => new ReadCam(x));
+                this.cams_lista.ItemsSource = arqs.Select(x => new ReadCAM(x));
                 this.pasta_sel.Text = pasta;
             }
         }
