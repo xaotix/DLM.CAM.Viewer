@@ -20,6 +20,7 @@ using DLM.cam;
 using System.Diagnostics;
 using System.IO;
 using DLM.vars;
+using Conexoes;
 
 namespace VisualizadorCAM
 {
@@ -42,12 +43,6 @@ namespace VisualizadorCAM
 
         private void Inicializar()
         {
-            this.Title = System.Windows.Forms.Application.ProductName + " v." + System.Windows.Forms.Application.ProductVersion;
-            this.Tipo.ItemsSource = Enum.GetValues(typeof(DLM.vars.CAM_PERFIL_TIPO)).Cast<DLM.vars.CAM_PERFIL_TIPO>().OrderBy(x => x.ToString()).ToList().FindAll(x => !x.ToString().StartsWith("_"));
-            if (this.Tipo.Items.Count > 0)
-            {
-                this.Tipo.SelectedIndex = 0;
-            }
             this.DataContext = this;
         }
 
@@ -58,16 +53,8 @@ namespace VisualizadorCAM
             this.DataContext = this;
         }
         public double Comprimento { get; set; } = 5000;
-        public double Largura { get; set; } = 150;
-        public double Largura2 { get; set; } = 200;
 
-        public double Espessura { get; set; } = 6.35;
-        public double Alma { get; set; } = 4.75;
-        public double Espessura2 { get; set; } = 7.90;
-
-        public double Altura { get; set; } = 450;
-        public double AbaS { get; set; } = 50;
-        public double AbaI { get; set; } = 25;
+        public DLM.cam.Perfil Perfil { get; set; } = new Perfil();
         private void abre_cam(object sender, RoutedEventArgs e)
         {
             var arq = Conexoes.Utilz.Abrir_String("cam", "Selecione um arquivo", "");
@@ -100,9 +87,8 @@ namespace VisualizadorCAM
 
         private void getCNC()
         {
-            var TipoPerfil = (DLM.vars.CAM_PERFIL_TIPO)Tipo.SelectedItem;
-            var ARQ = Cfg.Init.Raiz_AppData+ @"\" + TipoPerfil.ToString().ToUpper().Replace("_", "") + ".CAM";
-            this.camrender = new Cam(ARQ, DLM.cam.PerfilCAM.Criar(TipoPerfil,this.Altura,this.Alma,this.Largura,this.Espessura,this.AbaS,this.Largura2,this.AbaI,this.Espessura2), Comprimento);
+            var ARQ = Cfg.Init.Raiz_AppData+ @"\" + Perfil.Tipo.ToString().ToUpper().Replace("_", "") + ".CAM";
+            this.camrender = new Cam(ARQ, Perfil, Comprimento);
             var s = this.camrender.Formato.Peso;
         }
 
@@ -182,6 +168,7 @@ namespace VisualizadorCAM
 
         private void visualiza_cam_criado(object sender, RoutedEventArgs e)
         {
+            this.Perfil.Propriedades();
             RenderCAM();
         }
 
