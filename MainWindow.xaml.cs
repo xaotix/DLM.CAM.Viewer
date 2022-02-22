@@ -101,12 +101,9 @@ namespace VisualizadorCAM
         private void getCNC()
         {
             var TipoPerfil = (DLM.vars.CAM_PERFIL_TIPO)Tipo.SelectedItem;
-
             var ARQ = Cfg.Init.Raiz_AppData+ @"\" + TipoPerfil.ToString().ToUpper().Replace("_", "") + ".CAM";
-
-            this.camrender = new Cam(ARQ, DLM.cam.Perfil.Criar(this.Comprimento,TipoPerfil,this.Altura,this.Alma,this.Largura,this.Espessura,this.AbaS,this.Largura2,this.AbaI,this.Espessura2));
+            this.camrender = new Cam(ARQ, DLM.cam.PerfilCAM.Criar(TipoPerfil,this.Altura,this.Alma,this.Largura,this.Espessura,this.AbaS,this.Largura2,this.AbaI,this.Espessura2), Comprimento);
             var s = this.camrender.Formato.Peso;
-
         }
 
         private void ver_pasta(object sender, RoutedEventArgs e)
