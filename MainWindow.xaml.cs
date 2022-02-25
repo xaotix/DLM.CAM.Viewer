@@ -81,7 +81,8 @@ namespace VisualizadorCAM
             getCNC();
             if(camrender!=null)
             {
-                camrender.GerareVisualizar();
+                camrender.Gerar();
+                camrender.Arquivo.Abrir();
             }
         }
 
@@ -175,7 +176,7 @@ namespace VisualizadorCAM
         private void desmembra(object sender, RoutedEventArgs e)
         {
             var cam = this.view.Cam.GetCam();
-            var ss = cam.Desmembrar();
+            var ss = cam.Desmembrar(true);
             if(ss.Count>0)
             {
                 ss.Insert(0,cam);
