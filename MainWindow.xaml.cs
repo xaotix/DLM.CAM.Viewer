@@ -54,7 +54,18 @@ namespace VisualizadorCAM
         }
         public double Comprimento { get; set; } = 5000;
 
-        public DLM.cam.Perfil Perfil { get; set; } = new Perfil();
+        public DLM.cam.Perfil Perfil { get; set; } = new Perfil()
+        {
+            Tipo = CAM_PERFIL_TIPO.Caixao,
+            Altura = 450,
+            Largura_MS = 175,
+            Largura_MI = 150,
+            Esp = 4.75,
+            Esp_MS = 12.7,
+            Esp_MI = 6.35,
+            Raio = 4.75,
+            Caixao_Entre_Almas = 90
+        };
         private void abre_cam(object sender, RoutedEventArgs e)
         {
             var arq = Conexoes.Utilz.Abrir_String("cam", "Selecione um arquivo", "");
@@ -164,6 +175,10 @@ namespace VisualizadorCAM
                 this.cams_lista.ItemsSource = null;
                 this.cams_lista.ItemsSource = arqs.Select(x => new ReadCAM(x));
                 this.pasta_sel.Text = pasta;
+                if(this.cams_lista.Items.Count>0)
+                {
+                    this.cams_lista.SelectedIndex = 0;
+                }
             }
         }
 
@@ -187,6 +202,15 @@ namespace VisualizadorCAM
                 mm.tab_criar.Visibility = Visibility.Collapsed;
                 mm.bt_abre_pasta.Visibility = Visibility.Collapsed;
                 mm.pasta_sel.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void define_pasta(object sender, KeyEventArgs e)
+        {
+            if(e.Key!= Key.Enter) { return; }
+            if(pasta_sel.Text.Existe() && Conexoes.Utilz.E_Diretorio(pasta_sel.Text))
+            {
+                SetPasta(pasta_sel.Text, SearchOption.TopDirectoryOnly);
             }
         }
     }
