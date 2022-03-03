@@ -4,8 +4,6 @@
                   xmlns:mui="http://firstfloorsoftware.com/ModernUI"
                   Title="mui" 
                   xmlns:local="clr-namespace:DLM.helix;assembly=DLMHelix"
-                  xmlns:HelixToolkit="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"
-                          xmlns:avalonDock="https://github.com/Dirkster99/AvalonDock"
 
                   Style="{StaticResource BlankWindow}" WindowStartupLocation="CenterScreen">
     <Grid>
