@@ -32,24 +32,19 @@ namespace VisualizadorCAM
         public MainWindow(string Pasta, SearchOption searchOption)
         {
             InitializeComponent();
-            Inicializar();
+            this.DataContext = this;
 
             this.tab_criar.Visibility = Visibility.Collapsed;
-            if(Directory.Exists(Pasta))
+            if (Directory.Exists(Pasta))
             {
-            this.SetPasta(Pasta, searchOption);
+                this.SetPasta(Pasta, searchOption);
             }
         }
 
-        private void Inicializar()
-        {
-            this.DataContext = this;
-        }
 
         public MainWindow()
         {
             InitializeComponent();
-            Inicializar();
             this.DataContext = this;
         }
         public double Comprimento { get; set; } = 5000;
@@ -185,6 +180,7 @@ namespace VisualizadorCAM
         private void visualiza_cam_criado(object sender, RoutedEventArgs e)
         {
             this.Perfil.Propriedades();
+            this.Perfil.NotifyAll();
             RenderCAM();
         }
 
@@ -194,7 +190,7 @@ namespace VisualizadorCAM
             var ss = cam.Desmembrar(true);
             if(ss.Count>0)
             {
-                ss.Insert(0,cam);
+                //ss.Insert(0,cam);
                 MainWindow mm = new MainWindow();
                 mm.cams_lista.ItemsSource = ss.Select(x=> x.GetReadCam());
                 mm.Show();

@@ -4,64 +4,77 @@
                   xmlns:mui="http://firstfloorsoftware.com/ModernUI"
                   Title="mui" 
                   xmlns:local="clr-namespace:DLM.helix;assembly=DLMHelix"
-
+                  xmlns:Conexoes="clr-namespace:Conexoes;assembly=Conexoes"
                   Style="{StaticResource BlankWindow}" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" MaxHeight="250"></RowDefinition>
-            <RowDefinition Height="5"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
+    <TabControl>
+        <TabItem Header="Geral">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" MaxHeight="250"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
 
-        <TabControl>
-            <TabItem Header="Visualizar">
-                <Grid Margin="5,5,5,5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
+                <TabControl>
+                    <TabItem Header="Visualizar">
+                        <Grid Margin="5,5,5,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
 
-                    </Grid.RowDefinitions>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBox IsReadOnly="False"  x:Name="pasta_sel" VerticalAlignment="Center" Grid.Row="1" Margin="2,2,2,2" KeyDown="define_pasta"/>
-                        <Button Grid.Column="1" Content="..." Margin="2,2,2,2" Click="seleciona_pasta" Name="bt_abre_pasta"/>
-                    </Grid>
-                    <ComboBox x:Name="cams_lista" Grid.Row="10" Margin="2" SelectionChanged="carregar_cam"/>
-                </Grid>
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox IsReadOnly="False"  x:Name="pasta_sel" VerticalAlignment="Center" Grid.Row="1" Margin="2,2,2,2" KeyDown="define_pasta"/>
+                                <Button Grid.Column="1" Content="..." Margin="2,2,2,2" Click="seleciona_pasta" Name="bt_abre_pasta"/>
+                            </Grid>
+                            <ComboBox x:Name="cams_lista" Grid.Row="10" Margin="2" SelectionChanged="carregar_cam"/>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Criar" Name="tab_criar">
+
+                        <Grid Margin="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0" Grid.Row="0" Content="Comprimento:" VerticalAlignment="Center"   Margin="2"/>
+                            <TextBox Grid.Column="1" Grid.Row="0"  Text="{Binding Comprimento}" VerticalAlignment="Center"  Margin="2" TextChanged="TextBox_TextChanged"/>
+
+
+                            <Button Grid.Column="2" Content="Editar" Click="visualiza_cam_criado" Margin="2"/>
+                            <Button Grid.Column="3" Content="Abrir Pasta" Click="ver_pasta" Margin="2"/>
+                            <Button Grid.Column="4" Content="Gerar" Click="gerar_cam" Margin="2"/>
+                            <Button Grid.Column="5" Content="Desmembrar" Click="desmembra" Margin="2"/>
+                        </Grid>
+
+                    </TabItem>
+
+                </TabControl>
+                <local:CAMViewer Grid.Row="10" Name="view"/>
+
+            </Grid>
+        </TabItem>
+            <TabItem Header="Perfil">
+                <Grid>
+                <StackPanel>
+                    <Conexoes:Texto Editavel="False" Visivel="False" Titulo="Perfil:" Valor="{Binding Perfil.Descricao}"/>
+                <Conexoes:PerfilDBF Editavel="False" Perfil="{Binding Perfil}"/>
+                </StackPanel>
+            </Grid>
             </TabItem>
-            <TabItem Header="Criar" Name="tab_criar">
-
-                <Grid Margin="5,5,5,5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="0" Grid.Row="0" Content="Comprimento:" VerticalAlignment="Center"   Margin="2"/>
-                    <TextBox Grid.Column="1" Grid.Row="0"  Text="{Binding Comprimento}" VerticalAlignment="Center"  Margin="2" TextChanged="TextBox_TextChanged"/>
-
-
-                    <Button Grid.Column="2" Content="Editar" Click="visualiza_cam_criado" Margin="2"/>
-                    <Button Grid.Column="3" Content="Abrir Pasta" Click="ver_pasta" Margin="2"/>
-                    <Button Grid.Column="4" Content="Gerar" Click="gerar_cam" Margin="2"/>
-                    <Button Grid.Column="5" Content="Desmembrar" Click="desmembra" Margin="2"/>
-                </Grid>
-
-            </TabItem>
-        </TabControl>
-        <local:CAMViewer Grid.Row="10" Name="view"/>
-      
-    </Grid>
+    </TabControl>
 </mui:ModernWindow>
