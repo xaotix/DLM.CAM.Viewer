@@ -32,8 +32,7 @@ namespace VisualizadorCAM
         public MainWindow(string Pasta, SearchOption searchOption)
         {
             InitializeComponent();
-            this.DataContext = this;
-
+            this.DataContext = MVC;
             this.tab_criar.Visibility = Visibility.Collapsed;
             if (Directory.Exists(Pasta))
             {
@@ -45,22 +44,11 @@ namespace VisualizadorCAM
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = this;
+            this.DataContext = MVC;
         }
-        public double Comprimento { get; set; } = 5000;
 
-        public DLM.cam.Perfil Perfil { get; set; } = new Perfil()
-        {
-            Tipo = CAM_PERFIL_TIPO.Caixao,
-            Altura = 450,
-            Largura_MS = 175,
-            Largura_MI = 150,
-            Esp = 4.75,
-            Esp_MS = 12.7,
-            Esp_MI = 6.35,
-            Raio = 4.75,
-            Caixao_Entre_Almas = 90
-        };
+
+        public MVC MVC { get; set; } = new MVC();
         private void abre_cam(object sender, RoutedEventArgs e)
         {
             var arq = Conexoes.Utilz.Abrir_String("cam", "Selecione um arquivo", "");
@@ -81,22 +69,21 @@ namespace VisualizadorCAM
         {
 
         }
-        public Cam camrender { get; set; }
         private void gerar_cam(object sender, RoutedEventArgs e)
         {
             getCNC();
-            if(camrender!=null)
+            if(MVC.CAM != null)
             {
-                camrender.Gerar();
-                camrender.Arquivo.Abrir();
+                MVC.CAM.Gerar();
+                MVC.CAM.Arquivo.Abrir();
             }
         }
 
         private void getCNC()
         {
-            var ARQ = Cfg.Init.Raiz_AppData+ @"\" + Perfil.Tipo.ToString().ToUpper().Replace("_", "") + ".CAM";
-            this.camrender = new Cam(ARQ, Perfil, Comprimento);
-            var s = this.camrender.Formato.Peso;
+            var ARQ = Cfg.Init.Raiz_AppData+ @"\" + MVC.Perfil.Tipo.ToString().ToUpper().Replace("_", "") + ".CAM";
+            this.MVC.CAM = new Cam(ARQ, MVC.Perfil, MVC.Comprimento);
+            var s = this.MVC.CAM.Formato.Peso;
         }
 
         private void ver_pasta(object sender, RoutedEventArgs e)
@@ -118,11 +105,11 @@ namespace VisualizadorCAM
         private void RenderCAM()
         {
             getCNC();
-            if (camrender != null)
+            if (MVC.CAM != null)
             {
                 try
                 {
-                    this.view.Abrir(camrender);
+                    this.view.Abrir(MVC.CAM);
                 }
                 catch (Exception)
                 {
@@ -143,9 +130,10 @@ namespace VisualizadorCAM
             {
                 try
                 {
-                    this.camrender = null;
-                    this.view.Abrir((ReadCAM)s);
-
+                    var c = (s as ReadCAM);
+                    this.MVC.CAM = c.GetCam();
+                    this.view.Abrir(c);
+                    this.MVC.SomenteLeitura = true;
                 }
                 catch (Exception)
                 {
@@ -179,8 +167,6 @@ namespace VisualizadorCAM
 
         private void visualiza_cam_criado(object sender, RoutedEventArgs e)
         {
-            this.Perfil.Propriedades();
-            this.Perfil.NotifyAll();
             RenderCAM();
         }
 
@@ -208,6 +194,84 @@ namespace VisualizadorCAM
             {
                 SetPasta(pasta_sel.Text, SearchOption.TopDirectoryOnly);
             }
+        }
+
+        private void editar_perfil(object sender, RoutedEventArgs e)
+        {
+            MVC.Perfil.Propriedades();
+        }
+    }
+    public class MVC:Notificar
+    {
+        private Cam _CAM { get; set; }
+        public Cam CAM
+        {
+            get
+            {
+                return _CAM;
+            }
+            set
+            {
+                _CAM = value;
+                Perfil = value.Perfil;
+                Comprimento = value.Comprimento;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private bool _SomenteLeitura { get; set; } = false;
+        public bool SomenteLeitura
+        {
+            get
+            {
+                return _SomenteLeitura;
+            }
+            set
+            {
+                _SomenteLeitura = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private double _Comprimento { get; set; } = 5000;
+        public double Comprimento
+        {
+            get
+            {
+                return _Comprimento;
+            }
+            set
+            {
+                _Comprimento = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private DLM.cam.Perfil _Perfil { get; set; } = new Perfil()
+        {
+            Tipo = CAM_PERFIL_TIPO.Caixao,
+            Altura = 450,
+            Largura_MS = 175,
+            Largura_MI = 150,
+            Esp = 4.75,
+            Esp_MS = 12.7,
+            Esp_MI = 6.35,
+            Raio = 4.75,
+            Caixao_Entre_Almas = 90
+        };
+        public DLM.cam.Perfil Perfil
+        {
+            get
+            {
+                return _Perfil;
+            }
+            set
+            {
+                _Perfil = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public MVC()
+        {
+
         }
     }
 }

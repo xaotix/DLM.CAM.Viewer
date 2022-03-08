@@ -10,12 +10,12 @@
         <TabItem Header="Geral">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" MaxHeight="250"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="5"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TabControl>
+                <TabControl Height="auto">
                     <TabItem Header="Visualizar">
                         <Grid Margin="5,5,5,5">
                             <Grid.RowDefinitions>
@@ -36,45 +36,42 @@
                             <ComboBox x:Name="cams_lista" Grid.Row="10" Margin="2" SelectionChanged="carregar_cam"/>
                         </Grid>
                     </TabItem>
+     
                     <TabItem Header="Criar" Name="tab_criar">
-
-                        <Grid Margin="2">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Label Grid.Column="0" Grid.Row="0" Content="Comprimento:" VerticalAlignment="Center"   Margin="2"/>
-                            <TextBox Grid.Column="1" Grid.Row="0"  Text="{Binding Comprimento}" VerticalAlignment="Center"  Margin="2" TextChanged="TextBox_TextChanged"/>
-
-
-                            <Button Grid.Column="2" Content="Editar" Click="visualiza_cam_criado" Margin="2"/>
-                            <Button Grid.Column="3" Content="Abrir Pasta" Click="ver_pasta" Margin="2"/>
-                            <Button Grid.Column="4" Content="Gerar" Click="gerar_cam" Margin="2"/>
-                            <Button Grid.Column="5" Content="Desmembrar" Click="desmembra" Margin="2"/>
-                        </Grid>
-
+                            <Grid>
+                        <ScrollViewer VerticalScrollBarVisibility="Visible">
+                                <StackPanel>
+                                    
+                                    <WrapPanel>
+                                        <Conexoes:Texto Titulo="Comprimento: " Width="150" Valor="{Binding Comprimento}" SomenteLeitura="False" MaxLenght="8"/>
+                                        <Button Content="Perfil" Click="editar_perfil" Margin="2"/>
+                                        <Button Content="Atualizar" Click="visualiza_cam_criado" Margin="2"/>
+                                        <Button Content="Abrir Pasta" Click="ver_pasta" Margin="2"/>
+                                        <Button Content="Gerar" Click="gerar_cam" Margin="2"/>
+                                        <Button Content="Desmembrar" Click="desmembra" Margin="2"/>
+                                    </WrapPanel>
+                                </StackPanel>
+                        </ScrollViewer>
+                            </Grid>
                     </TabItem>
 
                 </TabControl>
-                <local:CAMViewer Grid.Row="10" Name="view"/>
+                <Grid Grid.Row="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="250"/>
+                    </Grid.ColumnDefinitions>
+                
+                    <local:CAMViewer Grid.Row="10" Name="view"/>
+                    <StackPanel Grid.Column="10">
+                        <Conexoes:PerfilDBF Grid.Column="10" SomenteLeitura="True" Perfil="{Binding Perfil}"/>
+                        <Conexoes:Texto Titulo="Comprimento:" Valor="{Binding CAM.Comprimento}" SomenteLeitura="True"/>
+                    </StackPanel>
+
+                </Grid>
 
             </Grid>
         </TabItem>
-            <TabItem Header="Perfil">
-                <Grid>
-                <StackPanel>
-                    <Conexoes:Texto Editavel="False" Visivel="False" Titulo="Perfil:" Valor="{Binding Perfil.Descricao}"/>
-                <Conexoes:PerfilDBF Editavel="False" Perfil="{Binding Perfil}"/>
-                </StackPanel>
-            </Grid>
-            </TabItem>
+
     </TabControl>
 </mui:ModernWindow>
