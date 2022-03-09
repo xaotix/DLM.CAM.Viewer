@@ -199,6 +199,13 @@ namespace VisualizadorCAM
         private void editar_perfil(object sender, RoutedEventArgs e)
         {
             MVC.Perfil.Propriedades();
+            RenderCAM();
+        }
+
+        private void set_comprimento(object sender, RoutedEventArgs e)
+        {
+            this.MVC.Comprimento = this.MVC.Comprimento.Prompt();
+            RenderCAM();
         }
     }
     public class MVC:Notificar
@@ -214,7 +221,6 @@ namespace VisualizadorCAM
             {
                 _CAM = value;
                 Perfil = value.Perfil;
-                Comprimento = value.Comprimento;
                 NotifyPropertyChanged();
             }
         }
