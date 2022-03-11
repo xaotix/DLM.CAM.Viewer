@@ -71,7 +71,6 @@ namespace VisualizadorCAM
         }
         private void gerar_cam(object sender, RoutedEventArgs e)
         {
-            getCNC();
             if(MVC.CAM != null)
             {
                 MVC.CAM.Gerar();
@@ -79,12 +78,7 @@ namespace VisualizadorCAM
             }
         }
 
-        private void getCNC()
-        {
-            var ARQ = Cfg.Init.Raiz_AppData+ @"\" + MVC.Perfil.Tipo.ToString().ToUpper().Replace("_", "") + ".CAM";
-            this.MVC.CAM = new Cam(ARQ, MVC.Perfil, MVC.Comprimento);
-            var s = this.MVC.CAM.Formato.Peso;
-        }
+
 
         private void ver_pasta(object sender, RoutedEventArgs e)
         {
@@ -97,14 +91,11 @@ namespace VisualizadorCAM
             }
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            RenderCAM();
-        }
+
 
         private void RenderCAM()
         {
-            getCNC();
+            
             if (MVC.CAM != null)
             {
                 try
@@ -118,26 +109,21 @@ namespace VisualizadorCAM
             }
         }
 
-        private void Tipo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            RenderCAM();
-        }
+
 
         private void carregar_cam(object sender, SelectionChangedEventArgs e)
         {
-            var s = this.cams_lista.SelectedItem;
-            if(s is ReadCAM)
+            var readCAM = this.cams_lista.SelectedItem;
+            if(readCAM is ReadCAM)
             {
                 try
                 {
-                    var c = (s as ReadCAM);
-                    this.MVC.CAM = c.GetCam();
-                    this.view.Abrir(c);
+                    this.view.Abrir(readCAM as ReadCAM);
                     this.MVC.SomenteLeitura = true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
+                    Conexoes.Utilz.Alerta(ex);
                 }
             }
         }
@@ -172,7 +158,7 @@ namespace VisualizadorCAM
 
         private void desmembra(object sender, RoutedEventArgs e)
         {
-            var cam = this.view.Cam.GetCam();
+            var cam = this.MVC.CAM;
             var ss = cam.Desmembrar(true);
             if(ss.Count>0)
             {
@@ -198,7 +184,8 @@ namespace VisualizadorCAM
 
         private void editar_perfil(object sender, RoutedEventArgs e)
         {
-            MVC.Perfil.Propriedades();
+            MVC.CAM.Perfil.Propriedades();
+            MVC.CAM.Perfil.NotifyAll();
             RenderCAM();
         }
 
@@ -206,6 +193,19 @@ namespace VisualizadorCAM
         {
             this.MVC.Comprimento = this.MVC.Comprimento.Prompt();
             RenderCAM();
+        }
+
+        private void deformar(object sender, RoutedEventArgs e)
+        {
+            double valor = 0;
+           valor = valor.Prompt();
+            if(valor>0)
+            {
+                this.MVC.CAM.Deformar(valor);
+            RenderCAM();
+            }
+
+
         }
     }
     public class MVC:Notificar
@@ -215,12 +215,15 @@ namespace VisualizadorCAM
         {
             get
             {
+                if(_CAM == null)
+                {
+                    _CAM = new Cam(Cfg.Init.Raiz_AppData + @"\" + "ARQUIVO.CAM", new DLM.cam.Perfil(), 5000);
+                }
                 return _CAM;
             }
             set
             {
                 _CAM = value;
-                Perfil = value.Perfil;
                 NotifyPropertyChanged();
             }
         }
@@ -263,18 +266,18 @@ namespace VisualizadorCAM
             Raio = 4.75,
             Caixao_Entre_Almas = 90
         };
-        public DLM.cam.Perfil Perfil
-        {
-            get
-            {
-                return _Perfil;
-            }
-            set
-            {
-                _Perfil = value;
-                NotifyPropertyChanged();
-            }
-        }
+        //public DLM.cam.Perfil Perfil
+        //{
+        //    get
+        //    {
+        //        return _Perfil;
+        //    }
+        //    set
+        //    {
+        //        _Perfil = value;
+        //        NotifyPropertyChanged();
+        //    }
+        //}
         public MVC()
         {
 

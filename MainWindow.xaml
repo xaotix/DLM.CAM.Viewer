@@ -45,6 +45,7 @@
                                     <WrapPanel>
                                         <Button Content="{Binding Comprimento}" Click="set_comprimento"/>
                                         <Button Content="Perfil" Click="editar_perfil" Margin="2"/>
+                                        <Button Content="Deformar" Click="deformar" Margin="2"/>
                                         <Button Content="Atualizar" Click="visualiza_cam_criado" Margin="2"/>
                                         <Button Content="Abrir Pasta" Click="ver_pasta" Margin="2"/>
                                         <Button Content="Gerar" Click="gerar_cam" Margin="2"/>
@@ -56,26 +57,8 @@
                     </TabItem>
 
                 </TabControl>
-                <Grid Grid.Row="10" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="250"/>
-                    </Grid.ColumnDefinitions>
-                
-                    <local:CAMViewer Grid.Row="10" Name="view"/>
-                    <StackPanel Grid.Column="10" Margin="5">
-                        <Conexoes:PerfilDBF Grid.Column="10" SomenteLeitura="True" Perfil="{Binding Perfil}"/>
-                        <GroupBox Header="Dados do CAM">
-                            <StackPanel>
-                                <Conexoes:Texto Titulo="Comprimento:" Valor="{Binding CAM.Comprimento}" SomenteLeitura="True"/>
-                                <Conexoes:Texto Titulo="Material:" Valor="{Binding CAM.Cabecalho.Material}" SomenteLeitura="True"/>
-                                <Conexoes:Texto Titulo="Peso:" Valor="{Binding CAM.Formato.Peso}" SomenteLeitura="True"/>
-                                <CheckBox Content="Tem Recorte" IsEnabled="False" IsChecked="{Binding CAM.Formato.Tem_Recorte,Mode=OneWay}"/>
-                            </StackPanel>
-                        </GroupBox>
-                    </StackPanel>
+                <local:CAMViewer Grid.Row="10" Name="view"/>
 
-                </Grid>
 
             </Grid>
         </TabItem>
