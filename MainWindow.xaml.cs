@@ -116,9 +116,11 @@ namespace VisualizadorCAM
             var readCAM = this.cams_lista.SelectedItem;
             if(readCAM is ReadCAM)
             {
+                var cam = readCAM as ReadCAM;
                 try
                 {
-                    this.view.Abrir(readCAM as ReadCAM);
+                    this.view.Abrir(cam);
+                    this.MVC.CAM = cam.GetCam(Cfg.Init.Raiz_AppData);
                     this.MVC.SomenteLeitura = true;
                 }
                 catch (Exception ex)
@@ -164,7 +166,8 @@ namespace VisualizadorCAM
             {
                 //ss.Insert(0,cam);
                 MainWindow mm = new MainWindow();
-                mm.cams_lista.ItemsSource = ss.Select(x=> x.GetReadCam());
+                var cams = ss.Select(x => x.GetReadCam()).ToList();
+                mm.cams_lista.ItemsSource = cams;
                 mm.Show();
                 mm.cams_lista.SelectedItem = mm.cams_lista.Items[0];
                 mm.tab_criar.Visibility = Visibility.Collapsed;
