@@ -30,7 +30,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox IsReadOnly="False"  x:Name="pasta_sel" VerticalAlignment="Center" Grid.Row="1" Margin="2,2,2,2" KeyDown="define_pasta"/>
+                                <TextBox IsReadOnly="False"  x:Name="pasta_sel" VerticalAlignment="Center" Grid.Row="1" Margin="2,2,2,2" KeyDown="define_pasta" Text=""/>
                                 <Button Grid.Column="1" Content="..." Margin="2,2,2,2" Click="seleciona_pasta" Name="bt_abre_pasta"/>
                             </Grid>
                             <ComboBox x:Name="cams_lista" Grid.Row="10" Margin="2" SelectionChanged="carregar_cam"/>

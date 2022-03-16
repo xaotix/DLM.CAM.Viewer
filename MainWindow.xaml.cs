@@ -45,6 +45,7 @@ namespace VisualizadorCAM
         {
             InitializeComponent();
             this.DataContext = MVC;
+            /*C:\Users\ma1516\Documents\Projetos\Conexoes\_Documentos\_CAMs_Tipos*/
         }
 
 
@@ -149,6 +150,9 @@ namespace VisualizadorCAM
                 if(this.cams_lista.Items.Count>0)
                 {
                     this.cams_lista.SelectedIndex = 0;
+                    this.view.ZoomExtend();
+                    this.view.Isometric();
+                
                 }
             }
         }
