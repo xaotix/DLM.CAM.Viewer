@@ -52,7 +52,7 @@ namespace VisualizadorCAM
         public MVC MVC { get; set; } = new MVC();
         private void abre_cam(object sender, RoutedEventArgs e)
         {
-            var arq = Conexoes.Utilz.Abrir_String("cam", "Selecione um arquivo", "");
+            var arq = Conexoes.Utilz.Abrir_String("cam", "Selecione um arquivo");
             if (arq == "" | arq == null)
             {
                 return;
