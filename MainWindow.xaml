@@ -3,6 +3,8 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:mui="http://firstfloorsoftware.com/ModernUI"
                   Title="mui" 
+                  MinHeight="450"
+                  MinWidth="700"
                   xmlns:local="clr-namespace:DLM.helix;assembly=DLMHelix"
                   xmlns:Conexoes="clr-namespace:Conexoes;assembly=Conexoes"
                   Style="{StaticResource BlankWindow}" WindowStartupLocation="CenterScreen">

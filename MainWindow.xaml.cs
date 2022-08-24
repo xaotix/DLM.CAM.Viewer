@@ -1,6 +1,5 @@
 ﻿using DLM.helix;
 using FirstFloor.ModernUI.Windows.Controls;
-using HelixToolkit.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
