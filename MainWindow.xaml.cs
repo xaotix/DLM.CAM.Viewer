@@ -84,7 +84,7 @@ namespace VisualizadorCAM
         {
             try
             {
-                Process.Start(Cfg.Init.Raiz_AppData);
+                Process.Start(Cfg.Init.DIR_APPDATA);
             }
             catch (Exception)
             {
@@ -120,7 +120,7 @@ namespace VisualizadorCAM
                 try
                 {
                     this.view.Abrir(cam);
-                    this.MVC.CAM = cam.GetCam(Cfg.Init.Raiz_AppData);
+                    this.MVC.CAM = cam.GetCam(Cfg.Init.DIR_APPDATA);
                     this.MVC.SomenteLeitura = true;
                 }
                 catch (Exception ex)
@@ -223,7 +223,7 @@ namespace VisualizadorCAM
             {
                 if(_CAM == null)
                 {
-                    _CAM = new Cam(Cfg.Init.Raiz_AppData + @"\" + "ARQUIVO.CAM", new DLM.cam.Perfil(), 5000);
+                    _CAM = new Cam(Cfg.Init.DIR_APPDATA + @"\" + "ARQUIVO.CAM", new DLM.cam.Perfil(), 5000);
                 }
                 return _CAM;
             }
