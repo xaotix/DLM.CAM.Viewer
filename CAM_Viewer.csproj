@@ -88,6 +88,12 @@
   <ItemGroup>
     <Content Include="d_icon-icons.com_60501.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DLMHelix\DLMHelix\DLM.helix.csproj">
+      <Project>{8cf2c852-67f6-4494-b4d0-aac6562756a8}</Project>
+      <Name>DLM.helix</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
