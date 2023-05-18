@@ -182,7 +182,7 @@ namespace VisualizadorCAM
         private void define_pasta(object sender, KeyEventArgs e)
         {
             if(e.Key!= Key.Enter) { return; }
-            if(pasta_sel.Text.Existe() && Conexoes.Utilz.E_Diretorio(pasta_sel.Text))
+            if(pasta_sel.Text.Exists() && Conexoes.Utilz.E_Diretorio(pasta_sel.Text))
             {
                 SetPasta(pasta_sel.Text, SearchOption.TopDirectoryOnly);
             }
