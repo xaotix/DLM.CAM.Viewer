@@ -11,7 +11,7 @@ namespace VisualizadorCAM
     {
         public static void AbrirPasta(string pasta, SearchOption searchOption)
         {
-            MainWindow pp = new MainWindow(pasta, searchOption);
+            var pp = new MainWindow(pasta, searchOption);
             pp.Show();
         }
     }
